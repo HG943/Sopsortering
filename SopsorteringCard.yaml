@@ -1,0 +1,214 @@
+type: vertical-stack
+cards:
+  - type: heading
+    heading: Soptömning
+    heading_style: title
+    icon: mdi:trash-can
+  - type: custom:mushroom-template-card
+    primary: 1. Rest- och matavfall
+    secondary: >
+      {% set d = states('sensor.soptomning_restavfall_datum') %}
+
+      {% set today = now().date() | string %}
+
+      {% set diff = (as_datetime(d).date() - now().date()).days %}
+
+      {% set weekdays = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag',
+      'Lördag', 'Söndag'] %}
+
+      {% set wd = weekdays[as_datetime(d).weekday()] %}
+
+      {% if d == today %} Idag · {{ d }}
+
+      {% elif diff == 1 %} Imorgon · {{ d }}
+
+      {% elif diff == 2 %} I övermorgon · {{ d }}
+
+      {% elif diff > 2 %} {{ wd }} · Om {{ diff }} dagar · {{ d }}
+
+      {% else %} {{ d }}
+
+      {% endif %}
+    icon: mdi:trash-can
+    icon_color: |
+      {% set d = states('sensor.soptomning_restavfall_datum') %}
+      {% set today = now().date() | string %}
+      {% set tomorrow = (now().date() + timedelta(days=1)) | string %}
+      {% set week = (now().date() + timedelta(days=7)) | string %}
+      {% if d == today %} red
+      {% elif d == tomorrow %} deep-orange
+      {% elif d <= week and d > today %} yellow
+      {% else %} grey
+      {% endif %}
+    card_mod:
+      style: |
+        {% set d = states('sensor.soptomning_restavfall_datum') %}
+        {% set today = now().date() | string %}
+        {% set tomorrow = (now().date() + timedelta(days=1)) | string %}
+        {% set week = (now().date() + timedelta(days=7)) | string %}
+        {% if d == today %}
+          ha-card { background: #FFB3B3; }
+          ha-card * { color: #1a1a1a !important; }
+        {% elif d == tomorrow %}
+          ha-card { background: #FFE0CC; }
+          ha-card * { color: #1a1a1a !important; }
+        {% elif d <= week and d > today %}
+          ha-card { background: #FEFBD8; }
+          ha-card * { color: #1a1a1a !important; }
+        {% endif %}
+  - type: custom:mushroom-template-card
+    primary: 2. Papper och plast
+    secondary: >
+      {% set d = states('sensor.soptomning_papper_och_plast_datum') %}
+
+      {% set today = now().date() | string %}
+
+      {% set diff = (as_datetime(d).date() - now().date()).days %}
+
+      {% set weekdays = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag',
+      'Lördag', 'Söndag'] %}
+
+      {% set wd = weekdays[as_datetime(d).weekday()] %}
+
+      {% if d == today %} Idag · {{ d }}
+
+      {% elif diff == 1 %} Imorgon · {{ d }}
+
+      {% elif diff == 2 %} I övermorgon · {{ d }}
+
+      {% elif diff > 2 %} {{ wd }} · Om {{ diff }} dagar · {{ d }}
+
+      {% else %} {{ d }}
+
+      {% endif %}
+    icon: mdi:package-variant-closed
+    icon_color: |
+      {% set d = states('sensor.soptomning_papper_och_plast_datum') %}
+      {% set today = now().date() | string %}
+      {% set tomorrow = (now().date() + timedelta(days=1)) | string %}
+      {% set week = (now().date() + timedelta(days=7)) | string %}
+      {% if d == today %} red
+      {% elif d == tomorrow %} deep-orange
+      {% elif d <= week and d > today %} yellow
+      {% else %} grey
+      {% endif %}
+    card_mod:
+      style: |
+        {% set d = states('sensor.soptomning_papper_och_plast_datum') %}
+        {% set today = now().date() | string %}
+        {% set tomorrow = (now().date() + timedelta(days=1)) | string %}
+        {% set week = (now().date() + timedelta(days=7)) | string %}
+        {% if d == today %}
+          ha-card { background: #FFB3B3; }
+          ha-card * { color: #1a1a1a !important; }
+        {% elif d == tomorrow %}
+          ha-card { background: #FFE0CC; }
+          ha-card * { color: #1a1a1a !important; }
+        {% elif d <= week and d > today %}
+          ha-card { background: #FEFBD8; }
+          ha-card * { color: #1a1a1a !important; }
+        {% endif %}
+  - type: custom:mushroom-template-card
+    primary: 3. Glas och metall
+    secondary: >
+      {% set d = states('sensor.soptomning_glas_och_metall_datum') %}
+
+      {% set today = now().date() | string %}
+
+      {% set diff = (as_datetime(d).date() - now().date()).days %}
+
+      {% set weekdays = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag',
+      'Lördag', 'Söndag'] %}
+
+      {% set wd = weekdays[as_datetime(d).weekday()] %}
+
+      {% if d == today %} Idag · {{ d }}
+
+      {% elif diff == 1 %} Imorgon · {{ d }}
+
+      {% elif diff == 2 %} I övermorgon · {{ d }}
+
+      {% elif diff > 2 %} {{ wd }} · Om {{ diff }} dagar · {{ d }}
+
+      {% else %} {{ d }}
+
+      {% endif %}
+    icon: mdi:bottle-wine-outline
+    icon_color: |
+      {% set d = states('sensor.soptomning_glas_och_metall_datum') %}
+      {% set today = now().date() | string %}
+      {% set tomorrow = (now().date() + timedelta(days=1)) | string %}
+      {% set week = (now().date() + timedelta(days=7)) | string %}
+      {% if d == today %} red
+      {% elif d == tomorrow %} deep-orange
+      {% elif d <= week and d > today %} yellow
+      {% else %} grey
+      {% endif %}
+    card_mod:
+      style: |
+        {% set d = states('sensor.soptomning_glas_och_metall_datum') %}
+        {% set today = now().date() | string %}
+        {% set tomorrow = (now().date() + timedelta(days=1)) | string %}
+        {% set week = (now().date() + timedelta(days=7)) | string %}
+        {% if d == today %}
+          ha-card { background: #FFB3B3; }
+          ha-card * { color: #1a1a1a !important; }
+        {% elif d == tomorrow %}
+          ha-card { background: #FFE0CC; }
+          ha-card * { color: #1a1a1a !important; }
+        {% elif d <= week and d > today %}
+          ha-card { background: #FEFBD8; }
+          ha-card * { color: #1a1a1a !important; }
+        {% endif %}
+  - type: custom:mushroom-template-card
+    primary: Trädgård
+    secondary: >
+      {% set d = states('sensor.soptomning_tradgard_datum') %}
+
+      {% set today = now().date() | string %}
+
+      {% set diff = (as_datetime(d).date() - now().date()).days %}
+
+      {% set weekdays = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag',
+      'Lördag', 'Söndag'] %}
+
+      {% set wd = weekdays[as_datetime(d).weekday()] %}
+
+      {% if d == today %} Idag · {{ d }}
+
+      {% elif diff == 1 %} Imorgon · {{ d }}
+
+      {% elif diff == 2 %} I övermorgon · {{ d }}
+
+      {% elif diff > 2 %} {{ wd }} · Om {{ diff }} dagar · {{ d }}
+
+      {% else %} {{ d }}
+
+      {% endif %}
+    icon: mdi:leaf
+    icon_color: |
+      {% set d = states('sensor.soptomning_tradgard_datum') %}
+      {% set today = now().date() | string %}
+      {% set tomorrow = (now().date() + timedelta(days=1)) | string %}
+      {% set week = (now().date() + timedelta(days=7)) | string %}
+      {% if d == today %} red
+      {% elif d == tomorrow %} deep-orange
+      {% elif d <= week and d > today %} yellow
+      {% else %} grey
+      {% endif %}
+    card_mod:
+      style: |
+        {% set d = states('sensor.soptomning_tradgard_datum') %}
+        {% set today = now().date() | string %}
+        {% set tomorrow = (now().date() + timedelta(days=1)) | string %}
+        {% set week = (now().date() + timedelta(days=7)) | string %}
+        {% if d == today %}
+          ha-card { background: #FFB3B3; }
+          ha-card * { color: #1a1a1a !important; }
+        {% elif d == tomorrow %}
+          ha-card { background: #FFE0CC; }
+          ha-card * { color: #1a1a1a !important; }
+        {% elif d <= week and d > today %}
+          ha-card { background: #FEFBD8; }
+          ha-card * { color: #1a1a1a !important; }
+        {% endif %}
