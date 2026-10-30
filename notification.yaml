@@ -1,0 +1,78 @@
+alias: Påminnelse soptömning
+description: Skickar notis kl 18 dagen innan soptömning
+triggers:
+  - at: '18:00:00'
+    trigger: time
+conditions: []
+actions:
+  - if:
+      - condition: template
+        value_template: >
+          {{ states('sensor.soptomning_restavfall_datum') == (now().date() +
+          timedelta(days=1)) | string }}
+    then:
+      - action: notify.mobile_app_for_system_notifications
+        data:
+          title: >-
+            🗑 Soptömning imorgon ({{
+            states('sensor.soptomning_restavfall_datum') }})
+          message: |
+            Kom ihåg att ställa ut rest- och matavfall ikväll!
+          data:
+            ttl: 0
+            priority: high
+        continue_on_error: true
+    note: Restavfall
+  - if:
+      - condition: template
+        value_template: >+
+          {{ states('sensor.soptomning_papper_och_plast_datum') == (now().date()
+          + timedelta(days=1)) | string }}
+
+    then:
+      - action: notify.mobile_app_for_system_notifications
+        data:
+          title: >-
+            🗑 Soptömning imorgon ({{
+            states('sensor.soptomning_papper_och_plast_datum') }})!
+          message: Kom ihåg att ställa ut papper och plast ikväll!
+          data:
+            ttl: 0
+            priority: high
+        continue_on_error: true
+    note: Papper och plast
+  - if:
+      - condition: template
+        value_template: >
+          {{ states('sensor.soptomning_glas_och_metall_datum') == (now().date()
+          + timedelta(days=1)) | string }}
+    then:
+      - action: notify.mobile_app_for_system_notifications
+        data:
+          title: >-
+            🗑 Soptömning imorgon  ({{
+            states('sensor.soptomning_glas_och_metall_datum') }})!
+          message: Kom ihåg att ställa ut glas och metall ikväll!
+          data:
+            ttl: 0
+            priority: high
+        continue_on_error: true
+    note: Glas och metall
+  - if:
+      - condition: template
+        value_template: >
+          {{ states('sensor.soptomning_tradgard_datum') == (now().date() +
+          timedelta(days=1)) | string }}
+    then:
+      - action: notify.mobile_app_for_system_notifications
+        data:
+          title: >-
+            🗑 Soptömning imorgon ({{ states('sensor.soptomning_tradgard_datum')
+            }})
+          message: Kom ihåg att ställa ut trädgårdsavfall ikväll!
+          data:
+            ttl: 0
+            priority: high
+        continue_on_error: true
+    note: Trädgårdsavfall
+mode: single
