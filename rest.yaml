@@ -1,0 +1,161 @@
+- resource: "https://www.stockholmvattenochavfall.se/villa-och-radhus/avfallstjanster/nar-kommer-sopbilen/Search?address=Storgatan%201,%20Stockholm,%2011444"
+  scan_interval: 7200
+  headers:
+    User-Agent: "Mozilla/5.0"
+    Accept: "application/json"
+  sensor:
+    # ==========================================
+    # 1. RESTAVFALL och MATAVFALL
+    # ==========================================
+    - name: "Soptömning Restavfall Datum"
+      unique_id: soptomning_restavfall_datum
+      icon: mdi:trash-can
+      value_template: >
+        {% set ns = namespace(val='Ej aktiv') %}
+        {% for item in value_json %}
+          {% if 'restavfall' in item.group %}
+            {% set ns.val = item.executionDate %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    - name: "Soptömning Restavfall Frekvens"
+      unique_id: soptomning_restavfall_frekvens
+      icon: mdi:update
+      value_template: >
+        {% set ns = namespace(val='Okänd') %}
+        {% for item in value_json %}
+          {% if 'restavfall' in item.group %}
+            {% set ns.val = item.fetchFrequency %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    - name: "Soptömning Restavfall Veckodag"
+      unique_id: soptomning_restavfall_veckodag
+      icon: mdi:calendar-today
+      value_template: >
+        {% set ns = namespace(val='Okänd') %}
+        {% for item in value_json %}
+          {% if 'restavfall' in item.group %}
+            {% set ns.val = item.weekday %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    # ==========================================
+    # 2. PAPPER och PLAST
+    # ==========================================
+    - name: "Soptömning Papper och Plast Datum"
+      unique_id: soptomning_papper_datum
+      icon: mdi:package-variant-closed
+      value_template: >
+        {% set ns = namespace(val='Ej aktiv') %}
+        {% for item in value_json %}
+          {% if 'papper' in item.group %}
+            {% set ns.val = item.executionDate %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    - name: "Soptömning Papper och Plast Frekvens"
+      unique_id: soptomning_papper_frekvens
+      icon: mdi:update
+      value_template: >
+        {% set ns = namespace(val='Okänd') %}
+        {% for item in value_json %}
+          {% if 'papper' in item.group %}
+            {% set ns.val = item.fetchFrequency %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    - name: "Soptömning Papper och Plast Veckodag"
+      unique_id: soptomning_papper_veckodag
+      icon: mdi:calendar-today
+      value_template: >
+        {% set ns = namespace(val='Okänd') %}
+        {% for item in value_json %}
+          {% if 'papper' in item.group %}
+            {% set ns.val = item.weekday %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    # ==========================================
+    # 3. GLAS och METALL
+    # ==========================================
+    - name: "Soptömning Glas och Metall Datum"
+      unique_id: soptomning_glas_datum
+      icon: mdi:glass-fragile
+      value_template: >
+        {% set ns = namespace(val='Ej säsong') %}
+        {% for item in value_json %}
+          {% if 'glas' in item.group %}
+            {% set ns.val = item.executionDate %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    - name: "Soptömning Glas och Metall Frekvens"
+      unique_id: soptomning_glas_frekvens
+      icon: mdi:update
+      value_template: >
+        {% set ns = namespace(val='Ej säsong') %}
+        {% for item in value_json %}
+          {% if 'glas' in item.group %}
+            {% set ns.val = item.fetchFrequency %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    - name: "Soptömning Glas och Metall Veckodag"
+      unique_id: soptomning_glas_veckodag
+      icon: mdi:calendar-today
+      value_template: >
+        {% set ns = namespace(val='Ej säsong') %}
+        {% for item in value_json %}
+          {% if 'glas' in item.group %}
+            {% set ns.val = item.weekday %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    # ==========================================
+    # 4. TRÄDGÅRDSAVFALL
+    # ==========================================
+    - name: "Soptömning Trädgård Datum"
+      unique_id: soptomning_tradgard_datum
+      icon: mdi:leaf
+      value_template: >
+        {% set ns = namespace(val='Ej säsong') %}
+        {% for item in value_json %}
+          {% if 'Trädgård' in item.group %}
+            {% set ns.val = item.executionDate %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    - name: "Soptömning Trädgård Frekvens"
+      unique_id: soptomning_tradgard_frekvens
+      icon: mdi:update
+      value_template: >
+        {% set ns = namespace(val='Ej säsong') %}
+        {% for item in value_json %}
+          {% if 'Trädgård' in item.group %}
+            {% set ns.val = item.fetchFrequency %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
+
+    - name: "Soptömning Trädgård Veckodag"
+      unique_id: soptomning_tradgard_veckodag
+      icon: mdi:calendar-today
+      value_template: >
+        {% set ns = namespace(val='Ej säsong') %}
+        {% for item in value_json %}
+          {% if 'Trädgård' in item.group %}
+            {% set ns.val = item.weekday %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.val }}
